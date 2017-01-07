@@ -1,8 +1,15 @@
 # ba-bautzen
 This repo contains all code programmed during our java-course.
 
-It is recommended to use eclipse as IDE because the root-directories of this repo are eclipse-Mars.2-projects.
-Because of charset issues you should declare UTF-8 as the default charset for all projects.
+Recommended Software:
+Eclipse Neon.2 (Plugins via Marketplace: WindowBuilder by EclipseFoundation and EGit ( - Git Integration for Eclipse 4.6.0)
+
+All root directories are eclipse projects.
+To download a project:
+1 start eclipse (with those plugins)
+2 open git-perspective using Window->Perspective->Open Perspective->other->Git
+3 clone a repository from https://github.com/thysce/ba-bautzen.git to your local repo
+4 select File->Import->Git->Local Repository->ba-bautzen/master 
 
 LICENSE
 All code is free of charge and may be edited, distributed and executed in any form but it must be marked as being developed by BABautzen_WI16.
