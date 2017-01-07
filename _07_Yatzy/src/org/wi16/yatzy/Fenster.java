@@ -84,9 +84,11 @@ public class Fenster extends JFrame implements NächsterSpielerListener
 				if (spielVorbei)
 				{
 					final Spieler s = sb.berechneGewinner();
-					setVisible(false);
 					JOptionPane.showMessageDialog(this, "Der Gewinner ist " + s.getName(), "Spiel vorbei",
 							JOptionPane.INFORMATION_MESSAGE);
+					setVisible(false);
+					dispose();
+					System.exit(1);
 				}
 			}
 		});

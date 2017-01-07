@@ -15,7 +15,8 @@ public class Spiel
 	private Spieler aktiverSpieler;
 	private final Queue<Spieler> spieler;
 
-	private int wurfNr, rundeNr, spielerNr;
+	private int wurfNr, rundeNr;
+	private final int ende;
 	private NächsterSpielerListener listener;
 
 	public Spiel(final Spieler... spieler)
@@ -29,7 +30,7 @@ public class Spiel
 		}
 		this.aktiverSpieler = this.spieler.poll();
 		this.rundeNr = 0;
-		this.spielerNr = 0;
+		this.ende = spieler.length * 13; // jeder Spieler hat 13 Runden
 	}
 
 	public boolean nächsterSpieler(final String erg, final boolean streichung)
@@ -51,13 +52,8 @@ public class Spiel
 		{
 			listener.rundeVorbei(this.aktiverSpieler);
 		}
-		spielerNr++;
-		if (spielerNr >= this.spieler.size() - 1)
-		{
-			spielerNr = 0;
-			rundeNr++;
-		}
-		return rundeNr >= 13;	// Spiel vorbei
+		rundeNr++;
+		return rundeNr >= ende;	// Spiel vorbei
 	}
 
 	private void auswerten(final String erg, final boolean streichung)
