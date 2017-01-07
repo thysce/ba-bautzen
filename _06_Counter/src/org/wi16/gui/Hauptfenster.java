@@ -11,7 +11,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import org.wi16.counter.Counter;
 import org.wi16.counter.ValueChangeListener;
@@ -23,25 +23,29 @@ import org.wi16.counter.ValueChangeListener;
 @SuppressWarnings("serial")
 public class Hauptfenster extends JFrame implements ValueChangeListener{
     
-	private final JTextArea anzahl;
+	private final JTextField anzahl;
 	private final JButton plus, minus;
 	
     public Hauptfenster(final Counter c){
     	c.setListener(this);
         this.setTitle("Counter");
         this.setSize(new Dimension(500,200));
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);				// Weil wir die Komponenten selbst anordnen, können wir nicht (so einfach) auf Größenänderungen des Fensters reagieren.
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);	// Ein Fenster schließt das Programm nicht automatisch, wenn der X-Knopf gedrückt wird, das stellen wir hier ein
+        												// Tun wir das hier nicht, so läuft das Programm weiter, ohne dass der User damit interagieren kann. WORST CASE EVER!!!
         
         final Container content = this.getContentPane();
-        content.setLayout(null);	// disable the automatic layout manager
-        							// we'll set the bounds for each component
+        content.setLayout(null);	// Ausschalten der Automatik zum Anordnen der GUI-Komponenten
+        							// Wir sagen mit setBounds selbst, wo die Komponenten hingehören
         
-        anzahl = new JTextArea();
-        anzahl.setBounds(30,20,300,100);
-        anzahl.setFont(new Font("Arial", Font.BOLD, 80));
-        anzahl.setEditable(false);
-        content.add(anzahl);
+        anzahl = new JTextField();
+        			//	x	y	b	h		// x/y-Position mit Breite und Höhe
+        anzahl.setBounds(30,20,300,100);		// Positionieren der Komponente in Abhängigkeit der OBEREN LINKEN Ecke der übergeordneten Komponente
+        										// y-Koordinaten gelten NACH UNTEN
+        										// x-Koordinaten gelten NACH RECHTS
+        anzahl.setFont(new Font("Arial", Font.BOLD, 80));	// Schriftart, Stil und Pixel-größe angeben
+        anzahl.setEditable(false);							// der User soll nichts eingeben können
+        content.add(anzahl);								// Hinzufügen der Kindkomponente anzahl zur übergeordneten ElternKomponente content
         
         plus = new JButton("+");
         plus.setBounds(350, 20, 100, 50);
@@ -57,19 +61,32 @@ public class Hauptfenster extends JFrame implements ValueChangeListener{
         plus.addActionListener(pl);							// Wir nutzen das Listener-Prinzip auch um Updates des Datenmodells an die GUI zu übertragen
         
         minus.addActionListener(event->c.minusEins());	// Lambda-Expressions wurden mit Java 8 eingeführt
-        														// Das ist was für Fortgeschrittene
+        												// Functional Interfaces sind was für Fortgeschrittene
     }
 
+    // Das ist unsere eigene Hilfsmethode um die Anzeige neu einzustellen
 	private void updateAnzahlAnzeige(final Counter counter)
 	{
+		// Zurücksetzen der Anzeige
 		anzahl.setText(String.valueOf(counter.getZahl()));
+		plus.setEnabled(true);
+		minus.setEnabled(true);
+		
 		if(counter.istKritischHoch()){
 			anzahl.setBackground(Color.RED);
+			if(counter.istMaximal()){ // wenn nötig Zugriff einschränken
+				plus.setEnabled(false);
+			}
 		}else{
 			anzahl.setBackground(Color.WHITE);
+			if(counter.istMinimal()){
+				minus.setEnabled(false);
+			}
 		}
 	}
-
+	
+	// Wir implementieren unseren eigenen Listener, um auf Veränderungen unseres Datenmodells zu reagieren.
+	// Man kann das in so einem einfachen Beispiel auch einfacher machen, aber so hier ist es der beste Weg, vor allem, wenn man mit anderen Leuten an großen Projekten arbeitet.
 	@Override
 	public void valueChanged(final Counter c)
 	{

@@ -131,4 +131,14 @@ public class Counter
 		this.listener = listener;
 	}
 
+	public boolean istMinimal()
+	{
+		return this.getZahl() == 0;
+	}
+
+	public boolean istMaximal()
+	{
+		return this.getZahl() == this.getObergrenze()-1;
+	}
+
 }
