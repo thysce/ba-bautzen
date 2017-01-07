@@ -14,7 +14,7 @@ public class Haupt {
 
     public static void main(final String... args) {
         
-    	final Counter counter = new Counter(100);
+    	final Counter counter = new Counter(30);
         final Hauptfenster hf = new Hauptfenster(counter);
         hf.setVisible(true);
     }

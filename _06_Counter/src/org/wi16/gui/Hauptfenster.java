@@ -28,7 +28,7 @@ public class Hauptfenster extends JFrame implements ValueChangeListener{
 	
     public Hauptfenster(final Counter c){
     	c.setListener(this);
-        this.setTitle("Counter");
+        this.setTitle("Counter by BABautzen_WI16");
         this.setSize(new Dimension(500,200));
         this.setResizable(false);				// Weil wir die Komponenten selbst anordnen, können wir nicht (so einfach) auf Größenänderungen des Fensters reagieren.
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);	// Ein Fenster schließt das Programm nicht automatisch, wenn der X-Knopf gedrückt wird, das stellen wir hier ein
@@ -73,14 +73,17 @@ public class Hauptfenster extends JFrame implements ValueChangeListener{
 		minus.setEnabled(true);
 		
 		if(counter.istKritischHoch()){
-			anzahl.setBackground(Color.RED);
+			anzahl.setBackground(Color.YELLOW);
 			if(counter.istMaximal()){ // wenn nötig Zugriff einschränken
+				anzahl.setBackground(Color.RED);
 				plus.setEnabled(false);
+				anzahl.requestFocus(); // verhindern, dass der Fokus automatisch auf den anderen Knopf springt
 			}
 		}else{
 			anzahl.setBackground(Color.WHITE);
 			if(counter.istMinimal()){
 				minus.setEnabled(false);
+				anzahl.requestFocus();
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 # ba-bautzen
 This repo contains all code programmed during our java-course.
 
-The code is created using NetBeans IDE 8.2.
 It is recommended to use eclipse as IDE because the root-directories of this repo are eclipse-Mars.2-projects.
 Because of charset issues you should declare UTF-8 as the default charset for all projects.
 
