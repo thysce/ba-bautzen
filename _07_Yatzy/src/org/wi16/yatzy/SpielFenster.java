@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 @SuppressWarnings("serial")
-public class Fenster extends JFrame implements NächsterSpielerListener
+public class SpielFenster extends JFrame implements NächsterSpielerListener
 {
 
 	private final Spieltabelle st;
@@ -20,7 +20,7 @@ public class Fenster extends JFrame implements NächsterSpielerListener
 	private final JButton wurf;
 	private final JLabel spieler, score;
 
-	public Fenster(final Spiel sb)
+	public SpielFenster(final Spiel sb)
 	{
 		this.spiel = sb;
 		this.spiel.setNächsterSpielerListener(this);
@@ -83,12 +83,10 @@ public class Fenster extends JFrame implements NächsterSpielerListener
 				}
 				if (spielVorbei)
 				{
-					final Spieler s = sb.berechneGewinner();
-					JOptionPane.showMessageDialog(this, "Der Gewinner ist " + s.getName(), "Spiel vorbei",
-							JOptionPane.INFORMATION_MESSAGE);
+					final AuswertungFenster aF = new AuswertungFenster(spiel);
+					aF.setVisible(true);
 					setVisible(false);
 					dispose();
-					System.exit(1);
 				}
 			}
 		});

@@ -30,7 +30,8 @@ public class Spiel
 		}
 		this.aktiverSpieler = this.spieler.poll();
 		this.rundeNr = 0;
-		this.ende = spieler.length * 13; // jeder Spieler hat 13 Runden
+		this.ende = spieler.length * 13 + 1; // jeder Spieler hat 13 Runden und
+												// die letze wird auch gespielt
 	}
 
 	public boolean nächsterSpieler(final String erg, final boolean streichung)
@@ -53,7 +54,7 @@ public class Spiel
 			listener.rundeVorbei(this.aktiverSpieler);
 		}
 		rundeNr++;
-		return rundeNr >= ende;	// Spiel vorbei
+		return rundeNr >= ende; // Spiel vorbei
 	}
 
 	private void auswerten(final String erg, final boolean streichung)
@@ -117,13 +118,24 @@ public class Spiel
 		int max = this.aktiverSpieler.getScore();
 		Spieler gewinner = this.aktiverSpieler;
 		int score;
-		for(Spieler s:this.spieler){
-			if((score = s.getScore()) > max){
+		for (Spieler s : this.spieler)
+		{
+			if ((score = s.getScore()) > max)
+			{
 				max = score;
 				gewinner = s;
 			}
 		}
 		return gewinner;
+	}
+
+	public Collection<Spieler> getSpieler()
+	{
+		final ArrayList<Spieler> spieler = new ArrayList<Spieler>(this.spieler.size() + 1);
+		spieler.add(aktiverSpieler);
+		for (Spieler s : this.spieler)
+			spieler.add(s);
+		return spieler;
 	}
 
 }
