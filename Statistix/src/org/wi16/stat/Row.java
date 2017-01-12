@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * A class to hold a set of values of a characteristic and evaluate it. We mark
  * n as being the amount of the values stored internally.
+ * 
  * @see #n()
  * 
  * @author Tim Trense
@@ -36,10 +37,11 @@ public class Row
 	/**
 	 * @return the amount of values in this row as an integer
 	 */
-	public int n(){
+	public int n()
+	{
 		return data.length;
 	}
-	
+
 	/**
 	 * sums up all values
 	 * 
@@ -364,6 +366,34 @@ public class Row
 			if (this.data[i] != r.data[i])
 				return false;
 		return true;
+	}
+
+	public static double coVariance(final Row a, final Row b)
+	{
+		if (a.n() != b.n())
+			return Double.NaN;
+		double v = 0;
+		final double aA = a.average();
+		final double aB = b.average();
+		for (int i = 0; i < a.n(); i++)
+			v += (a.data[i] - aA) * (b.data[i] - aB);
+		return 1d / a.n() * v;
+	}
+
+	public static double correlationCoefficient(final Row a, final Row b)
+	{
+		final double cv = coVariance(a, b);
+		if (Double.isNaN(cv))
+			return Double.NaN;
+		final double aA = a.average();
+		final double aB = b.average();
+		double av = 0;
+		double bv = 0;
+		for (int i = 0; i < a.n(); i++)
+			av += Math.pow(a.data[i] - aA, 2);
+		for (int i = 0; i < b.n(); i++)
+			bv += Math.pow(b.data[i] - aB, 2);
+		return cv / Math.sqrt(av * bv);
 	}
 
 }
