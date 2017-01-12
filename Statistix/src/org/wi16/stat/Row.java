@@ -317,6 +317,20 @@ public class Row
 		return average() / standardDeviation();
 	}
 
+	/**
+	 * the gini-coefficient for this row
+	 * 
+	 * @return 1/(2average*n*n) * EE(|xi-xj|, 0, n)
+	 */
+	public double gini()
+	{
+		double gini = 0;
+		for (int i = 0; i < data.length; i++)
+			for (int j = 0; j < data.length; j++)
+				gini += Math.abs(data[i] - data[j]);
+		return 1d / (2 * average() * Math.pow(data.length, 2)) * gini;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -343,5 +357,5 @@ public class Row
 				return false;
 		return true;
 	}
-	
+
 }
