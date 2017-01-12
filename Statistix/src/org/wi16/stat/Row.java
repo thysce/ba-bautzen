@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * A class to hold a set of values of a characteristic and evaluate it. We mark
  * n as being the amount of the values stored internally.
+ * @see #n()
  * 
  * @author Tim Trense
  **/
@@ -33,6 +34,13 @@ public class Row
 	}
 
 	/**
+	 * @return the amount of values in this row as an integer
+	 */
+	public int n(){
+		return data.length;
+	}
+	
+	/**
 	 * sums up all values
 	 * 
 	 * @return E(x, 0, n)
@@ -40,7 +48,7 @@ public class Row
 	 */
 	public double sum()
 	{
-		return sum(0, data.length);
+		return sum(0, n());
 	}
 
 	/**
@@ -67,7 +75,7 @@ public class Row
 	 */
 	public double product()
 	{
-		return product(0, data.length);
+		return product(0, n());
 	}
 
 	/**
@@ -96,7 +104,7 @@ public class Row
 	public Map<Double, Double> absoluteCommonness()
 	{
 		final Hashtable<Double, Double> cmn = new Hashtable<>();
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < n(); i++)
 		{
 			if (cmn.containsKey(data[i]))
 				cmn.put(data[i], cmn.get(data[i]) + 1);
@@ -118,7 +126,7 @@ public class Row
 		final Map<Double, Double> cmn = absoluteCommonness();
 		for (Double d : cmn.keySet())
 		{
-			cmn.put(d, cmn.get(d) / data.length);
+			cmn.put(d, cmn.get(d) / n());
 		}
 		return cmn;
 	}
@@ -130,7 +138,7 @@ public class Row
 	 */
 	public double average()
 	{
-		return 1d / data.length * sum();
+		return 1d / n() * sum();
 	}
 
 	/**
@@ -140,7 +148,7 @@ public class Row
 	 */
 	public double geomAverage()
 	{
-		return Math.pow(product(), 1d / data.length);
+		return Math.pow(product(), 1d / n());
 	}
 
 	/**
@@ -152,10 +160,10 @@ public class Row
 	{
 		final Map<Double, Double> absCmn = absoluteCommonness();
 		double sum = 0;
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < n(); i++)
 
 			sum += data[i] * absCmn.get(data[i]);
-		return 1d / data.length * sum;
+		return 1d / n() * sum;
 	}
 
 	/**
@@ -167,10 +175,10 @@ public class Row
 	{
 		final Map<Double, Double> relCmn = relativeCommonness();
 		double sum = 0;
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < n(); i++)
 
 			sum += data[i] * relCmn.get(data[i]);
-		return 1d / data.length * sum;
+		return 1d / n() * sum;
 	}
 
 	/**
@@ -184,7 +192,7 @@ public class Row
 		final Map<Double, Double> absCmn = absoluteCommonness();
 		double cmn = absCmn.get(m);
 		double currCmn = cmn;
-		for (int i = 1; i < data.length; i++)
+		for (int i = 1; i < n(); i++)
 			if ((currCmn = absCmn.get(data[i])) > cmn)
 			{
 				m = data[i];
@@ -213,7 +221,7 @@ public class Row
 			return Double.NaN;
 		double w = 0;
 		final Map<Double, Double> cmn = relativeCommonness();
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < n(); i++)
 		{
 			w += cmn.get(data[i]);
 			if (w >= q)
@@ -252,9 +260,9 @@ public class Row
 	public double dispersion(final double v)
 	{
 		double sum = 0;
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < n(); i++)
 			sum += Math.pow(data[i] - v, 2);
-		return 1d / data.length * sum;
+		return 1d / n() * sum;
 	}
 
 	/**
@@ -276,7 +284,7 @@ public class Row
 	public double max()
 	{
 		double m = data[0];
-		for (int i = 1; i < data.length; i++)
+		for (int i = 1; i < n(); i++)
 			if (data[i] > m)
 				m = data[i];
 		return m;
@@ -291,7 +299,7 @@ public class Row
 	public double min()
 	{
 		double m = data[0];
-		for (int i = 1; i < data.length; i++)
+		for (int i = 1; i < n(); i++)
 			if (data[i] < m)
 				m = data[i];
 		return m;
@@ -325,10 +333,10 @@ public class Row
 	public double gini()
 	{
 		double gini = 0;
-		for (int i = 0; i < data.length; i++)
-			for (int j = 0; j < data.length; j++)
+		for (int i = 0; i < n(); i++)
+			for (int j = 0; j < n(); j++)
 				gini += Math.abs(data[i] - data[j]);
-		return 1d / (2 * average() * Math.pow(data.length, 2)) * gini;
+		return 1d / (2 * average() * Math.pow(n(), 2)) * gini;
 	}
 
 	@Override
@@ -336,7 +344,7 @@ public class Row
 	{
 		final StringBuilder b = new StringBuilder();
 		b.append("[" + data[0]);
-		for (int i = 1; i < data.length; i++)
+		for (int i = 1; i < n(); i++)
 			b.append(", " + data[i]);
 		b.append("]");
 		return b.toString();
@@ -350,9 +358,9 @@ public class Row
 		if (!(obj instanceof Row))
 			return false;
 		final Row r = (Row) obj;
-		if (this.data.length != r.data.length)
+		if (this.n() != r.n())
 			return false;
-		for (int i = 0; i < this.data.length; i++)
+		for (int i = 0; i < this.n(); i++)
 			if (this.data[i] != r.data[i])
 				return false;
 		return true;
