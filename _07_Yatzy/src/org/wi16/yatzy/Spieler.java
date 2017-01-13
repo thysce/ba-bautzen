@@ -26,14 +26,21 @@ public class Spieler
 		return this.name;
 	}
 
-	public int getScore()
+	public int getScore(final boolean includeBonus)
 	{
 		int sum = 0;
 		for (int i : this.ergebnisse.values())
 		{
 			sum += i;
 		}
+		if(includeBonus && reachedBonus()){
+			sum += YatzyAuswertung.BONUS;
+		}
 		return sum;
+	}
+	
+	public boolean reachedBonus(){
+		return YatzyAuswertung.berechneHatBonus(this);
 	}
 
 	public void increaseScore(final String erg, final int val)

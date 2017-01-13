@@ -32,18 +32,19 @@ public class AuswertungFenster extends JFrame
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		table = new JTable(15, spiel.getSpieler().size() + 1);
+		table = new JTable(16, spiel.getSpieler().size() + 1);
 		panel_1.add(table, BorderLayout.NORTH);
 		table.setRowSelectionAllowed(false);
 		table.setEnabled(false);
 		Spieltabelle.fülleTabellenüberschrift(table, 1);
+		table.setValueAt("Bonus", 14, 0);
+		table.setValueAt("Ergebnis", 15, 0);
 
 		JLabel lblGewonnenHat = new JLabel(spiel.berechneGewinner().getName() + " hat gewonnen!!!");
 		lblGewonnenHat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGewonnenHat.setForeground(Color.BLUE);
 		lblGewonnenHat.setFont(new Font("Verdana", Font.ITALIC, 28));
 		panel_1.add(lblGewonnenHat, BorderLayout.CENTER);
-		table.setValueAt("Ergebnis", 14, 0);
 
 		JLabel lblYatzySpielauswertung = new JLabel("Yatzy - Spielauswertung");
 		lblYatzySpielauswertung.setForeground(Color.BLUE);
@@ -78,7 +79,9 @@ public class AuswertungFenster extends JFrame
 				if (s != null)
 					table.setValueAt(s.getName() + "", 0, idx + 1);
 				Spieltabelle.zeigeSpielerdatenAn(table, s, 1, idx);
-				table.setValueAt(s.getScore(), 14, idx + 1);
+				final int score = s.getScore(true);
+				table.setValueAt(String.valueOf(s.reachedBonus() ? YatzyAuswertung.BONUS : 0), 14, idx + 1);
+				table.setValueAt(score, 15, idx + 1);
 				idx++;
 			}
 		}

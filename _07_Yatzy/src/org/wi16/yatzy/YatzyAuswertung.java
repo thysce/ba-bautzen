@@ -8,11 +8,26 @@ import java.util.Map;
 public class YatzyAuswertung
 {
 
+	public static final int BONUS = 35, BONUS_MIN_SAMMELN = 63;
+	
 	public static final String EINER = "Einser", ZWEIER = "Zweier", DREIER = "Dreier", VIERER = "Vierer",
-			FUNFER = "F�nfer", SECHSER = "Sechser";
+			FUNFER = "Fünfer", SECHSER = "Sechser";
+
+	public static final String[] SAMMELN = { EINER, ZWEIER, DREIER, VIERER, FUNFER, SECHSER };
 
 	public static final String PASCH3 = "Dreierpasch", PASCH4 = "Viererpasch", FULLHOUSE = "Full House",
-			STRASSE_KL = "kleine Stra�e", STRASSE_GR = "gro�e Stra�e", YATZEE = "Yatzee!!", CHANCE = "Chance";
+			STRASSE_KL = "kleine Straße", STRASSE_GR = "große Straße", YATZEE = "Yatzee!!", CHANCE = "Chance";
+
+	public static boolean berechneHatBonus(final Spieler p)
+	{
+		int sum = 0;
+		for (String s : SAMMELN)
+		{
+			if (p.getErgebnisse().containsKey(s))
+				sum += p.getErgebnisse().get(s);
+		}
+		return sum >= BONUS_MIN_SAMMELN;
+	}
 
 	public static Collection<String> berechneMöglicheErgebnisse(final Spieler spieler, final Becher becher)
 	{

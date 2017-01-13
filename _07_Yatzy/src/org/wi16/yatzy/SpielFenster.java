@@ -97,6 +97,9 @@ public class SpielFenster extends JFrame implements NächsterSpielerListener
 	{
 		spieler.setText("Spieler: " + nächster.getName());
 		st.zeigeSpielerdatenAn(nächster);
-		score.setText("Score: " + nächster.getScore());
+		if (nächster.reachedBonus())
+			score.setText("Score: " + nächster.getScore(false) + " +" + YatzyAuswertung.BONUS);
+		else
+			score.setText("Score: " + nächster.getScore(false));
 	}
 }

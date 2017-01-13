@@ -115,12 +115,12 @@ public class Spiel
 
 	public Spieler berechneGewinner()
 	{
-		int max = this.aktiverSpieler.getScore();
+		int max = this.aktiverSpieler.getScore(true);
 		Spieler gewinner = this.aktiverSpieler;
 		int score;
 		for (Spieler s : this.spieler)
 		{
-			if ((score = s.getScore()) > max)
+			if ((score = s.getScore(true)) > max)
 			{
 				max = score;
 				gewinner = s;
