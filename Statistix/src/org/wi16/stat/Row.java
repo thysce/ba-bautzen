@@ -368,6 +368,12 @@ public class Row
 		return true;
 	}
 
+	/**
+	 * implies positive linear correlation between parameters if result is highly positive and vice versa
+	 * @param a parameter a
+	 * @param b parameter b
+	 * @return 1/n * E((y-averageY) * (x-averageX), 0, n)
+	 */
 	public static double coVariance(final Row a, final Row b)
 	{
 		if (a.n() != b.n())
@@ -380,6 +386,12 @@ public class Row
 		return 1d / a.n() * v;
 	}
 
+	/**
+	 * determines how strongly related the both rows are, adapted from pearson
+	 * @param a parameter a
+	 * @param b parameter b with b.n() == a.n(), otherwise result will be Double.NaN
+	 * @return [-1d;1d] where 0 means no correlation, -1 strongly negative- and 1 strongly positive correlated
+	 */
 	public static double correlationCoefficient(final Row a, final Row b)
 	{
 		final double cv = coVariance(a, b);

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 @SuppressWarnings("serial")
-public class SpielFenster extends JFrame implements N‰chsterSpielerListener
+public class SpielFenster extends JFrame implements N√§chsterSpielerListener
 {
 
 	private final Spieltabelle st;
@@ -23,7 +23,7 @@ public class SpielFenster extends JFrame implements N‰chsterSpielerListener
 	public SpielFenster(final Spiel sb)
 	{
 		this.spiel = sb;
-		this.spiel.setN‰chsterSpielerListener(this);
+		this.spiel.setN√§chsterSpielerListener(this);
 		this.setTitle("Yatzy");
 		this.setSize(800, 500);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,7 +34,7 @@ public class SpielFenster extends JFrame implements N‰chsterSpielerListener
 		{
 			final JPanel p = new JPanel();
 			p.setLayout(new GridLayout(1, Becher.MAX_COUNT));
-			for (JToggleButton btn : sb.getW¸rfelButtons())
+			for (JToggleButton btn : sb.getW√ºrfelButtons())
 			{
 				p.add(btn);
 			}
@@ -56,30 +56,30 @@ public class SpielFenster extends JFrame implements N‰chsterSpielerListener
 		score.setBounds(getWidth() / 2, getHeight() / 3 + getHeight() / 5 + 20, getWidth() / 2 - 10, getHeight() / 5);
 		c.add(score);
 
-		wurf = new JButton("W¸rfeln");
+		wurf = new JButton("Wurfeln");
 		wurf.setFont(new Font("Arial", Font.BOLD, 50));
 		wurf.setBounds(getWidth() / 2, getHeight() / 3 + 10, getWidth() / 2 - 10, getHeight() / 5);
 		c.add(wurf);
 		wurf.addActionListener(event -> {
-			final boolean n‰chsterSpieler = sb.wurf();
-			if (n‰chsterSpieler)
+			final boolean nuchsterSpieler = sb.wurf();
+			if (nuchsterSpieler)
 			{
-				final String[] mˆglicheErgs = sb.berechneMˆglicheErgebnisse();
+				final String[] muglicheErgs = sb.berechneM√∂glicheErgebnisse();
 				final String input;
 				final boolean spielVorbei;
-				if (mˆglicheErgs != null && mˆglicheErgs.length > 0)
+				if (muglicheErgs != null && muglicheErgs.length > 0)
 				{
-					input = (String) JOptionPane.showInputDialog(this, "Bitte Ergebnis w‰hlen", "Spielzug vorbei",
-							JOptionPane.QUESTION_MESSAGE, null, mˆglicheErgs, mˆglicheErgs[0]);
+					input = (String) JOptionPane.showInputDialog(this, "Bitte Ergebnis wuhlen", "Spielzug vorbei",
+							JOptionPane.QUESTION_MESSAGE, null, muglicheErgs, muglicheErgs[0]);
 
-					spielVorbei = sb.n‰chsterSpieler(input, false);
+					spielVorbei = sb.n√§chsterSpieler(input, false);
 				} else
 				{
 					final String[] ergs = sb.berechneStreichung();
 					input = (String) JOptionPane.showInputDialog(this,
 							"Leider einmal nichts! Bitte ein Ergebnis streichen", "Spielzug vorbei",
 							JOptionPane.QUESTION_MESSAGE, null, ergs, ergs[0]);
-					spielVorbei = sb.n‰chsterSpieler(input, true);
+					spielVorbei = sb.n√§chsterSpieler(input, true);
 				}
 				if (spielVorbei)
 				{
@@ -93,10 +93,10 @@ public class SpielFenster extends JFrame implements N‰chsterSpielerListener
 	}
 
 	@Override
-	public void rundeVorbei(final Spieler n‰chster)
+	public void rundeVorbei(final Spieler n√§chster)
 	{
-		spieler.setText("Spieler: " + n‰chster.getName());
-		st.zeigeSpielerdatenAn(n‰chster);
-		score.setText("Score: " + n‰chster.getScore());
+		spieler.setText("Spieler: " + n√§chster.getName());
+		st.zeigeSpielerdatenAn(n√§chster);
+		score.setText("Score: " + n√§chster.getScore());
 	}
 }

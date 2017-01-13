@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.JToggleButton;
 
-public class Würfel
+public class WÃ¼rfel
 {
 
 	private static final Random zufall;
@@ -18,12 +18,12 @@ public class Würfel
 	private int augenzahl;
 	private final JToggleButton btn;
 
-	public Würfel()
+	public WÃ¼rfel()
 	{
 		btn = new JToggleButton(getAugenzahl() + "");
 		btn.setSelected(false);
 		btn.setFont(new Font("Arial", Font.BOLD, 90));
-		wurf(); // zufällige Zahl anzeigen
+		wurf(); // zufï¿½llige Zahl anzeigen
 	}
 
 	public JToggleButton getAnzeige()

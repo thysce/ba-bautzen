@@ -11,10 +11,10 @@ public class Spieltabelle extends JTable
 	public Spieltabelle()
 	{
 		super(13, 2);
-		f¸lleTabellen‹berschrift(this, 0);
+		f√ºlleTabellen√ºberschrift(this, 0);
 	}
 	
-	public static void f¸lleTabellen‹berschrift(final JTable table, final int offset){
+	public static void f√ºlleTabellen√ºberschrift(final JTable table, final int offset){
 		table.setValueAt(YatzyAuswertung.EINER, offset+0, 0);
 		table.setValueAt(YatzyAuswertung.ZWEIER, offset+1, 0);
 		table.setValueAt(YatzyAuswertung.DREIER, offset+2, 0);

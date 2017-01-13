@@ -9,12 +9,12 @@ public class YatzyAuswertung
 {
 
 	public static final String EINER = "Einser", ZWEIER = "Zweier", DREIER = "Dreier", VIERER = "Vierer",
-			FUNFER = "Fünfer", SECHSER = "Sechser";
+			FUNFER = "Fï¿½nfer", SECHSER = "Sechser";
 
 	public static final String PASCH3 = "Dreierpasch", PASCH4 = "Viererpasch", FULLHOUSE = "Full House",
-			STRASSE_KL = "kleine Straße", STRASSE_GR = "große Straße", YATZEE = "Yatzee!!", CHANCE = "Chance";
+			STRASSE_KL = "kleine Straï¿½e", STRASSE_GR = "groï¿½e Straï¿½e", YATZEE = "Yatzee!!", CHANCE = "Chance";
 
-	public static Collection<String> berechneMöglicheErgebnisse(final Spieler spieler, final Becher becher)
+	public static Collection<String> berechneMÃ¶glicheErgebnisse(final Spieler spieler, final Becher becher)
 	{
 		final List<String> e = new LinkedList<String>();
 		final Map<String, Integer> sergs = spieler.getErgebnisse();
@@ -244,7 +244,7 @@ public class YatzyAuswertung
 	private static int chance(final Becher becher)
 	{
 		int sum = 0;
-		for (Würfel w : becher.getWürfel())
+		for (WÃ¼rfel w : becher.getWÃ¼rfel())
 		{
 			sum += w.getAugenzahl();
 		}

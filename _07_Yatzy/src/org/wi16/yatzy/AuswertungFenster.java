@@ -36,7 +36,7 @@ public class AuswertungFenster extends JFrame
 		panel_1.add(table, BorderLayout.NORTH);
 		table.setRowSelectionAllowed(false);
 		table.setEnabled(false);
-		Spieltabelle.fülleTabellenÜberschrift(table, 1);
+		Spieltabelle.fÃ¼lleTabellenÃ¼berschrift(table, 1);
 
 		JLabel lblGewonnenHat = new JLabel(spiel.berechneGewinner().getName() + " hat gewonnen!!!");
 		lblGewonnenHat.setHorizontalAlignment(SwingConstants.CENTER);
@@ -70,7 +70,7 @@ public class AuswertungFenster extends JFrame
 		panel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 5));
 		panel.add(btnOk);
 
-		{// Fülle Tabelle mit Spielerdaten
+		{// FÃ¼lle Tabelle mit Spielerdaten
 
 			int idx = 0;
 			for (Spieler s : spiel.getSpieler())

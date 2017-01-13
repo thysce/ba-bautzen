@@ -3,29 +3,29 @@ package org.wi16.yatzy;
 public class Becher
 {
 
-	private final Würfel[] würfel;
+	private final WÃ¼rfel[] wÃ¼rfel;
 	public static final int MAX_COUNT = 5;
 
 	public Becher()
 	{
-		würfel = new Würfel[MAX_COUNT];
-		for (int i = 0; i < würfel.length; i++)
+		wÃ¼rfel = new WÃ¼rfel[MAX_COUNT];
+		for (int i = 0; i < wÃ¼rfel.length; i++)
 		{
-			würfel[i] = new Würfel();
+			wÃ¼rfel[i] = new WÃ¼rfel();
 		}
 	}
 
 	public void wurf()
 	{
-		for (Würfel w : würfel)
+		for (WÃ¼rfel w : wÃ¼rfel)
 		{
 			w.wurf();
 		}
 	}
 
-	public Würfel[] getWürfel()
+	public WÃ¼rfel[] getWÃ¼rfel()
 	{
-		return würfel;
+		return wÃ¼rfel;
 	}
 
 	public boolean hasZahl(final int z)
@@ -41,7 +41,7 @@ public class Becher
 		} else
 		{
 			int sum = 0;
-			for (Würfel w : this.würfel)
+			for (WÃ¼rfel w : this.wÃ¼rfel)
 			{
 				if (w.getAugenzahl() == z)
 				{

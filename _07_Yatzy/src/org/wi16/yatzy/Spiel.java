@@ -17,7 +17,7 @@ public class Spiel
 
 	private int wurfNr, rundeNr;
 	private final int ende;
-	private NächsterSpielerListener listener;
+	private NÃ¤chsterSpielerListener listener;
 
 	public Spiel(final Spieler... spieler)
 	{
@@ -34,11 +34,11 @@ public class Spiel
 												// die letze wird auch gespielt
 	}
 
-	public boolean nächsterSpieler(final String erg, final boolean streichung)
+	public boolean nÃ¤chsterSpieler(final String erg, final boolean streichung)
 	{
 		auswerten(erg, streichung);
 
-		for (Würfel w : becher.getWürfel())
+		for (WÃ¼rfel w : becher.getWÃ¼rfel())
 		{
 			w.setAktiv(true);
 		}
@@ -82,24 +82,24 @@ public class Spiel
 		}
 	}
 
-	public Collection<JToggleButton> getWürfelButtons()
+	public Collection<JToggleButton> getWÃ¼rfelButtons()
 	{
 		final List<JToggleButton> btns = new ArrayList<JToggleButton>(Becher.MAX_COUNT);
-		for (Würfel w : becher.getWürfel())
+		for (WÃ¼rfel w : becher.getWÃ¼rfel())
 		{
 			btns.add(w.getAnzeige());
 		}
 		return btns;
 	}
 
-	public void setNächsterSpielerListener(final NächsterSpielerListener l)
+	public void setNÃ¤chsterSpielerListener(final NÃ¤chsterSpielerListener l)
 	{
 		this.listener = l;
 	}
 
-	public String[] berechneMöglicheErgebnisse()
+	public String[] berechneMÃ¶glicheErgebnisse()
 	{
-		final Collection<String> strg = YatzyAuswertung.berechneMöglicheErgebnisse(aktiverSpieler, becher);
+		final Collection<String> strg = YatzyAuswertung.berechneMÃ¶glicheErgebnisse(aktiverSpieler, becher);
 		final String[] ergs = new String[strg.size()];
 		strg.toArray(ergs);
 		return ergs;
@@ -107,7 +107,7 @@ public class Spiel
 
 	public String[] berechneStreichung()
 	{
-		final Collection<String> strg = YatzyAuswertung.berechneMöglicheErgebnisse(aktiverSpieler, null);
+		final Collection<String> strg = YatzyAuswertung.berechneMÃ¶glicheErgebnisse(aktiverSpieler, null);
 		final String[] ergs = new String[strg.size()];
 		strg.toArray(ergs);
 		return ergs;
