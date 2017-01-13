@@ -56,7 +56,7 @@ public class SpielFenster extends JFrame implements NächsterSpielerListener
 		score.setBounds(getWidth() / 2, getHeight() / 3 + getHeight() / 5 + 20, getWidth() / 2 - 10, getHeight() / 5);
 		c.add(score);
 
-		wurf = new JButton("Wurfeln");
+		wurf = new JButton("Würfeln");
 		wurf.setFont(new Font("Arial", Font.BOLD, 50));
 		wurf.setBounds(getWidth() / 2, getHeight() / 3 + 10, getWidth() / 2 - 10, getHeight() / 5);
 		c.add(wurf);
@@ -69,7 +69,7 @@ public class SpielFenster extends JFrame implements NächsterSpielerListener
 				final boolean spielVorbei;
 				if (muglicheErgs != null && muglicheErgs.length > 0)
 				{
-					input = (String) JOptionPane.showInputDialog(this, "Bitte Ergebnis wuhlen", "Spielzug vorbei",
+					input = (String) JOptionPane.showInputDialog(this, "Bitte Ergebnis wählen", "Spielzug vorbei",
 							JOptionPane.QUESTION_MESSAGE, null, muglicheErgs, muglicheErgs[0]);
 
 					spielVorbei = sb.nächsterSpieler(input, false);

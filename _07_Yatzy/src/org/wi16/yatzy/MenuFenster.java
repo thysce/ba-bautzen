@@ -70,7 +70,7 @@ public class MenuFenster extends JFrame
 						name = "Neuer Spieler " + id;
 					}
 				} while (exists);
-				name = JOptionPane.showInputDialog(MenuFenster.this, "Wie hei�t der Spieler?", name);
+				name = JOptionPane.showInputDialog(MenuFenster.this, "Wie heißt der Spieler?", name);
 				if (name != null)
 				{
 					player.addElement(name);
