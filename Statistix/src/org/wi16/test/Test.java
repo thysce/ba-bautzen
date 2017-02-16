@@ -37,12 +37,13 @@ public class Test
 	public static void maint2(final String... args) throws IOException
 	{
 		final File file = new File("D:\\randomData");
-//		final DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
-//		final int c = 100000;
-//		// out.writeInt(c);
-//		for (int i = 0; i < c; i++)
-//			out.writeDouble(Math.random());
-//		out.close();
+		// final DataOutputStream out = new DataOutputStream(new
+		// FileOutputStream(file));
+		// final int c = 100000;
+		// // out.writeInt(c);
+		// for (int i = 0; i < c; i++)
+		// out.writeDouble(Math.random());
+		// out.close();
 		System.out.println("written");
 		final StreamStatistix stat = new StreamStatistix(new FileStream(file));
 		stat.setUpdate(s -> {
@@ -52,11 +53,11 @@ public class Test
 		});
 		stat.evaluate();
 	}
-	
+
 	public static void main(final String... args) throws IOException
 	{
-		final Row x = new Row(10,21,39,45,54,66,87,99,109);
-		final Row y = new Row(2,5,13,17,21,22,38,40,42);
+		final Row x = new Row(10, 21, 39, 45, 54, 66, 87, 99, 109);
+		final Row y = new Row(2, 5, 13, 17, 21, 22, 38, 40, 42);
 		final double[] ab = Row.linearRegress(x, y);
 		System.out.println(Arrays.toString(ab));
 	}

@@ -12,7 +12,7 @@ public class Average2 implements StreamValue
 			sum += value;
 		else
 			sum = value;
-		
+
 		count++;
 	}
 

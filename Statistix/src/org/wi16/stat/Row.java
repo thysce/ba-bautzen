@@ -342,15 +342,20 @@ public class Row
 	}
 
 	/**
-	 * calculates the linear regression between x and y where y is dependent to x<br>
+	 * calculates the linear regression between x and y where y is dependent to
+	 * x<br>
 	 * x.n() must equal y.n()
-	 * @param x the abscissa
-	 * @param y the ordinate
-	 * @return [a,b] where the regression-line is y=a+bx or null if x.n() != y.n()
+	 * 
+	 * @param x
+	 *            the abscissa
+	 * @param y
+	 *            the ordinate
+	 * @return [a,b] where the regression-line is y=a+bx or null if x.n() !=
+	 *         y.n()
 	 */
 	public static double[] linearRegress(final Row x, final Row y)
 	{
-		if(x.n() != y.n())
+		if (x.n() != y.n())
 			return null;
 		final double[] res = new double[2];
 		res[1] = (coVariance(x, y)) / (x.variance());
