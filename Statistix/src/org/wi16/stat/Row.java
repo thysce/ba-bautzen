@@ -363,6 +363,40 @@ public class Row
 		return res;
 	}
 
+	/**
+	 * calculates the linear regression between x and y where y is dependent to
+	 * x<br>
+	 * x.n() must equal y.n()
+	 * <p>
+	 * this is equal to but faster than linearRegress(Row, Row)<br>
+	 * 
+	 * @see #linearRegress(Row, Row)
+	 * @param x
+	 *            the abscissa
+	 * @param y
+	 *            the ordinate
+	 * @return [a,b] where the regression-line is y=a+bx or null if x.n() !=
+	 *         y.n()
+	 */
+	public static double[] linearRegress2(final Row x, final Row y)
+	{
+		if (x.n() != y.n())
+			return null;
+		final double n = x.n();
+		double s = 0;
+		for (int i = 0; i < x.data.length; i++)
+			s += x.data[i] * y.data[i];
+		double d = 0;
+		for (int i = 0; i < x.data.length; i++)
+			d += x.data[i] * x.data[i];
+		final double[] res = new double[2];
+		final double xa = x.average();
+		final double ya = y.average();
+		res[1] = (s - n * xa * ya) / (d - n * xa * xa);
+		res[0] = ya - res[1] * xa;
+		return res;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -413,7 +447,7 @@ public class Row
 	}
 
 	/**
-	 * determines how strongly related the both rows are, adapted from pearson
+	 * determines how strongly related the both rows are, adapted from Pearson
 	 * 
 	 * @param a
 	 *            parameter a
@@ -428,15 +462,7 @@ public class Row
 		final double cv = coVariance(a, b);
 		if (Double.isNaN(cv))
 			return Double.NaN;
-		final double aA = a.average();
-		final double aB = b.average();
-		double av = 0;
-		double bv = 0;
-		for (int i = 0; i < a.n(); i++)
-			av += Math.pow(a.data[i] - aA, 2);
-		for (int i = 0; i < b.n(); i++)
-			bv += Math.pow(b.data[i] - aB, 2);
-		return cv / Math.sqrt(av * bv);
+		return cv / (a.standardDeviation() * b.standardDeviation());
 	}
 
 }

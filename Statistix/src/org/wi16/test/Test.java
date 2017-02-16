@@ -59,6 +59,9 @@ public class Test
 		final Row x = new Row(10, 21, 39, 45, 54, 66, 87, 99, 109);
 		final Row y = new Row(2, 5, 13, 17, 21, 22, 38, 40, 42);
 		final double[] ab = Row.linearRegress(x, y);
+		final double[] ab2 = Row.linearRegress2(x, y);
 		System.out.println(Arrays.toString(ab));
+		System.out.println(Arrays.toString(ab2));
+		System.out.println(Row.correlationCoefficient(x, y));
 	}
 }
