@@ -1,8 +1,5 @@
 package org.wi16.stat;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * implementing the simplex-algorithm for searching optimal values such that a
  * term becomes maximal under certain conditions
@@ -17,12 +14,14 @@ public class Simplex
 {
 	private final double[][] tableau;
 	private final int[] res;
-	private boolean done;
+	private boolean done, solved;
+	private final boolean log;
 
 	// helping values
 	final int zfz;
 	final int q;
 	final int b;
+	final int maxSwap;
 
 	/**
 	 * constructs a simplex-task searching the optimal x1, x2, ..., xn for
@@ -34,11 +33,17 @@ public class Simplex
 	 * @param nb
 	 *            the coefficient-matrix for the conditions
 	 *            [[a1,b1,...,z1,w1,MAX1],[a2,b2,...,z2,MAX2],...]
+	 * @param log
+	 *            whether to sys-out the steps of the algorithm
 	 */
-	public Simplex(final double[] c, final double[][] nb)
+	public Simplex(final double[] c, final double[][] nb, final boolean log)
 	{
+		this.log = log;
 		done = false;
+		solved = false;
 		res = new int[c.length];
+		for (int i = 0; i < res.length; i++)
+			res[i] = -1;
 		tableau = new double[nb.length + 1][nb[0].length + 1];
 		for (int i = 0; i < c.length; i++)
 			tableau[tableau.length - 1][i] = c[i];
@@ -51,50 +56,48 @@ public class Simplex
 		zfz = tableau.length - 1;
 		q = tableau[0].length - 1;
 		b = q - 1;
+		maxSwap = c.length;
+	}
+
+	public boolean isSolved()
+	{
+		return solved;
 	}
 
 	/**
 	 * executes the simplex-algorithm
 	 * 
 	 * @see #simplexLogged()
+	 * @return whether the simplex-algorithm terminated successfully
 	 */
-	public void simplex()
+	public boolean simplex()
 	{
 		if (done)
-			return;
+			return false;
 		else
 			done = true;
 
-		boolean best = simplexStep(true);
-		while (!best)
+		int swapCount = 0;
+		try
 		{
-			best = simplexStep(false);
-		}
-	}
-
-	/**
-	 * executes the simplex algorithm, but with logging every step as a snapshot
-	 * in a list
-	 * 
-	 * @return the log of the algorithm
-	 */
-	public List<double[][]> simplexLogged()
-	{
-		if (done)
-			return null;
-		else
-			done = true;
-
-		final List<double[][]> log = new LinkedList<>();
-		log.add(snapshot());
-		boolean best = simplexStep(true);
-		while (!best)
+			if (log)
+				System.out.println(toString(snapshot(), 2));
+			boolean best = simplexStep(true);
+			swapCount++;
+			while (!best && swapCount < maxSwap)
+			{
+				if (log)
+					System.out.println(toString(snapshot(), 2));
+				best = simplexStep(false);
+				swapCount++;
+			}
+			if (log)
+				System.out.println(toString(snapshot(), 2));
+		} catch (final ArithmeticException e)
 		{
-			log.add(snapshot());
-			best = simplexStep(false);
+			return false;
 		}
-		log.add(snapshot());
-		return log;
+		return solved = (swapCount <= maxSwap);
 	}
 
 	private double[][] snapshot()
@@ -121,7 +124,10 @@ public class Simplex
 		final int pivotRow = findPivotRow();
 		reduceForm(pivotRow, pivotCol);
 
-		res[pivotCol] = pivotRow;
+		if (pivotCol < res.length)
+			res[pivotCol] = pivotRow;
+		else
+			throw new ArithmeticException("simplex-algorithm has no solution");
 		return checkBest();
 	}
 
@@ -213,7 +219,9 @@ public class Simplex
 			final double[] ov = new double[res.length];
 			for (int i = 0; i < ov.length; i++)
 			{
-				if (Double.isInfinite(tableau[res[i]][tableau[res[i]].length - 1]))
+				if (res[i] >= 0) // if
+									// (Double.isInfinite(tableau[res[i]][tableau[res[i]].length
+									// - 1]))
 					ov[i] = tableau[res[i]][tableau[0].length - 2];
 				else
 					ov[i] = 0;

@@ -341,6 +341,23 @@ public class Row
 		return 1d / (2 * average() * Math.pow(n(), 2)) * gini;
 	}
 
+	/**
+	 * calculates the linear regression between x and y where y is dependent to x<br>
+	 * x.n() must equal y.n()
+	 * @param x the abscissa
+	 * @param y the ordinate
+	 * @return [a,b] where the regression-line is y=a+bx or null if x.n() != y.n()
+	 */
+	public static double[] linearRegress(final Row x, final Row y)
+	{
+		if(x.n() != y.n())
+			return null;
+		final double[] res = new double[2];
+		res[1] = (coVariance(x, y)) / (x.variance());
+		res[0] = y.average() - res[1] * x.average();
+		return res;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -369,9 +386,13 @@ public class Row
 	}
 
 	/**
-	 * implies positive linear correlation between parameters if result is highly positive and vice versa
-	 * @param a parameter a
-	 * @param b parameter b
+	 * implies positive linear correlation between parameters if result is
+	 * highly positive and vice versa
+	 * 
+	 * @param a
+	 *            parameter a
+	 * @param b
+	 *            parameter b
 	 * @return 1/n * E((y-averageY) * (x-averageX), 0, n)
 	 */
 	public static double coVariance(final Row a, final Row b)
@@ -388,9 +409,14 @@ public class Row
 
 	/**
 	 * determines how strongly related the both rows are, adapted from pearson
-	 * @param a parameter a
-	 * @param b parameter b with b.n() == a.n(), otherwise result will be Double.NaN
-	 * @return [-1d;1d] where 0 means no correlation, -1 strongly negative- and 1 strongly positive correlated
+	 * 
+	 * @param a
+	 *            parameter a
+	 * @param b
+	 *            parameter b with b.n() == a.n(), otherwise result will be
+	 *            Double.NaN
+	 * @return [-1d;1d] where 0 means no correlation, -1 strongly negative- and
+	 *         1 strongly positive correlated
 	 */
 	public static double correlationCoefficient(final Row a, final Row b)
 	{

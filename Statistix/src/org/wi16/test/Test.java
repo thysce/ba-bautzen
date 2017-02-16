@@ -2,6 +2,7 @@ package org.wi16.test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.wi16.stat.Row;
 import org.wi16.stat.Table;
@@ -33,7 +34,7 @@ public class Test
 		System.out.println(t.contingenceCoefficient());
 	}
 
-	public static void main(final String... args) throws IOException
+	public static void maint2(final String... args) throws IOException
 	{
 		final File file = new File("D:\\randomData");
 //		final DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
@@ -50,5 +51,13 @@ public class Test
 			System.out.println(a + "\t\t" + b + "\t\t" + (a - b));
 		});
 		stat.evaluate();
+	}
+	
+	public static void main(final String... args) throws IOException
+	{
+		final Row x = new Row(10,21,39,45,54,66,87,99,109);
+		final Row y = new Row(2,5,13,17,21,22,38,40,42);
+		final double[] ab = Row.linearRegress(x, y);
+		System.out.println(Arrays.toString(ab));
 	}
 }
