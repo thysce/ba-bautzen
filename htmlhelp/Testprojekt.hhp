@@ -1,0 +1,15 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=Testprojekt.chm
+Contents file=Table of Contents.hhc
+Default topic=ueberblick.htm
+Display compile notes=No
+Display compile progress=Yes
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x407 Deutsch (Deutschland)
+Title=Testhilfe
+
+
+[INFOTYPES]
+
