@@ -28,7 +28,7 @@ public class Zahl extends Observable {
         }
         this.z++;
         this.setChanged();
-        this.notifyObservers();
+        this.notifyObservers(false);
     }
 
     public void reset() {
@@ -36,7 +36,7 @@ public class Zahl extends Observable {
             this.z = 0;
             this.setChanged();
         }
-        this.notifyObservers();
+        this.notifyObservers(true);
     }
 
 }
