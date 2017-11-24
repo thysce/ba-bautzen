@@ -5,12 +5,13 @@ import javax.swing.JOptionPane;
 public class Ausnahmen {
 
 	public static int div(final int a, final int b) throws DivideByZeroException, IntegerDivisionHasRestException {
-		int result = -1;
 		try {
-			result = a / b;
-		} catch (final ArithmeticException e) {
-			throw new DivideByZeroException();
+			assert b != 0 : new DivideByZeroException();
+		} catch (final AssertionError e) {
+			if (e.getCause() instanceof DivideByZeroException)
+				throw (DivideByZeroException) e.getCause();
 		}
+		int result = a / b;
 		int rest = a % b;
 		if (rest != 0)
 			throw new IntegerDivisionHasRestException(result, rest);
