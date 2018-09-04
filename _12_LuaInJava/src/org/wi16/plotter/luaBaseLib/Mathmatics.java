@@ -14,7 +14,8 @@ public class Mathmatics extends LuaTable {
 	public class SquareRoot extends VarArgFunction {
 		@Override
 		public Varargs invoke(Varargs args) {
-			args.argcheck(args.isnumber(1), 1, "radiant must be a number");
+			args.argcheck(args.isnumber(1), 1, "sqrt() radiant must be a number");
+			args.argcheck(args.narg() == 1, 0, "sqrt() must be called with one single argument");
 			double radiant = args.checkdouble(1);
 			double squareRoot = Math.sqrt(radiant);
 			LuaValue result = LuaValue.valueOf(squareRoot);
